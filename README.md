@@ -40,24 +40,30 @@
 ## Section 3 : I Am Rich App (Lesson 28)
 
 - You right clicked on **`res`** folder but didn't find **`Image Asset`**? Don't worry Follow these steps,
+
+  - Right click on **`android`** folder and a pop-up menu wiil open up.
   
-  - Close current project by pressing **`File > Close Project`**
+    From that, select **`Flutter > Open Android Module in Android Studio`**
+
+    **If this doesn't work for you then follow these steps**,
   
-  - Now you will have the first screen of Android Studio.
+  **1.** Close current project by pressing **`File > Close Project`**
   
-  - Press **`Open an Existing Project`**, then **`Open File or Project`** dialog will open.
+  **2.** Now you will have the first screen of Android Studio.
   
-  - Here, navigate to your **Flutter project** in which, you want to add **`Image Asset`**
+  **3.** Press **`Open an Existing Project`**, then **`Open File or Project`** dialog will open.
   
-  - Expand that and you will find **`android`** folder. Select that and press **`OK`**
+  **4.** Here, navigate to your **Flutter project** in which, you want to add **`Image Asset`**
   
-  - This will open **Android Part** of your **Flutter Project**.
+  **5.** Expand that and you will find **`android`** folder. Select that and press **`OK`**
   
-  - Now, at bottom right, if it's running any **`gradle`** processes, let it run. Don't interrupt! However, if you close it, it'll rebuild everything when you reopen it. So, no need to worry!
+- **Both ways** should open **Android Part** of your **Flutter Project** in **`Android Studio`**.
   
-  - After that long build process completes, you can find  **`Image Asset`** option when you click on **`res`** folder, **Yay**!
+- Now, at bottom right, if it's running any **`gradle`** processes, let it run. Don't interrupt! However, if you close it, it'll rebuild everything when you reopen it. So, no need to worry!
   
-  - Add assets and again, **`File > Close Project`**, **`Open an Existing Project`** and this time, select your **Flutter Project** and continue!
+- After that long build process completes, you can find  **`Image Asset`** option when you click on **`res`** folder, **Yay**!
+  
+- Add assets and again, **`File > Close Project`**, **`Open an Existing Project`** and this time, select your **Flutter Project** and continue!
 
 ## Section 7 : Dicee App (Lesson 53)
 
@@ -106,7 +112,7 @@
 
 - **`FlatButton`** is **`deprecated`**, so use **`TextButton`** instead.
 
-## Section 12 : BMI Calculator App (Lessons 125, 126, 128)
+## Section 12 : BMI Calculator App (Lessons 125, 126, 128, 129)
 
 - **`@required`** is replaced by just **`required` (Without @ sign)**
 

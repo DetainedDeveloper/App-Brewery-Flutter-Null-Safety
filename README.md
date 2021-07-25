@@ -54,7 +54,7 @@
 
 - Use latest **`Flutter SDK`**, currently I am using **`2.2`** in **`stable channel`**
 
-  - To upgrade old one, run **`flutter upgrade`** in your **`terminal / command prompt (cmd)`**
+  - To upgrade old one, run **`flutter upgrade`** in your **`Terminal / Command Prompt (cmd)`**
 
 #### 2. **`Android license status unknown`**
 

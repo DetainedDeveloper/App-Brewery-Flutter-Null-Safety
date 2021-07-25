@@ -12,6 +12,28 @@
 
 - Use latest verions of required **`packages`** and **`plugins`**, find them on [**pub.dev**](https://pub.dev/)
 
+## Index
+
+#### 1. [Terminology](#terminology)
+
+#### 2. [Common issues and fixes](#common-issues-and-fixes)
+
+#### 3. [Resources](#resources)
+
+#### 4. [Code to Update](#code-to-update)
+
+  1. #### [Section 3 : I Am Rich App](#section-3--i-am-rich-app-lesson-28)
+  
+  2. #### [Section 7 : Dicee App](#section-7--dicee-app-lesson-53)
+  
+  3. #### [Section 9 : Xylophone App](#section-9--xylophone-app-lessons-76-77)
+  
+  4. #### [Section 10 : Quizzler App](#section-10--quizzler-app-lesson-94)
+  
+  5. #### [Section 12 : BMI Calculator App](#section-12--bmi-calculator-app-lessons-125-126-128-129)
+  
+  6. #### [Section 13 : Clima App](#section-13--clima-app-lesson-140)
+
 ## Terminology
 
 ### 1. Deprecated

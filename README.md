@@ -36,6 +36,8 @@
 
 ## Terminology
 
+##### [Go back to Index](#index)
+
 ### 1. Deprecated
 
 - You will often come across **`deprecated`** stuff, where it says **This is `deprecated`**. This means it's **not recommended** to use it anymore in your projects. You should avoid it and use alternatives.
@@ -49,6 +51,8 @@
 - Read more : [**Sound Null Safety**](https://dart.dev/null-safety), [**Understanding Null Safety**](https://dart.dev/null-safety/understanding-null-safety), [**Null Safety in Flutter**](https://flutter.dev/docs/null-safety)
 
 ## Common Issues and Fixes
+
+##### [Go back to Index](#index)
 
 #### 1. Using old Flutter SDK?
 
@@ -76,6 +80,8 @@
 
 ## Resources
 
+##### [Go back to Index](#index)
+
 #### 1. Try out Null Safety on [DartPad](https://dartpad.dev/?null_safety=true)
 
 #### 2. Read Updated [Flutter Docs](https://flutter.dev/docs)
@@ -86,6 +92,8 @@
 # Code to Update
 
 ## Section 3 : I Am Rich App (Lesson 28)
+
+##### [Go back to Index](#index)
 
 - You right clicked on **`res`** folder but didn't find **`Image Asset`**? Don't worry Follow these steps,
 
@@ -115,9 +123,13 @@
 
 ## Section 7 : Dicee App (Lesson 53)
 
+##### [Go back to Index](#index)
+
 - **`FlatButton`** is **`deprecated`**, so use **`TextButton`** instead.
 
 ## Section 9 : Xylophone App (Lessons 76, 77)
+
+##### [Go back to Index](#index)
 
 - Getting a LOOONNNGGG error when trying to use **`audioplayers` plugin**?
   
@@ -138,6 +150,8 @@
   - So, for **Xylopone Keys**, use **`MaterialButton`** instead of **`FlatButton`**
 
 ## Section 10 : Quizzler App (Lesson 94)
+
+##### [Go back to Index](#index)
 
 - Due to **`null safety`**, all variables in a class must have a value assigned, when created. If not, they must be declared **`Nullable`** intentionally. This rule also applies to **`Stateless`** and **`Stateful`** widgets. On top of that, in classes extending **`StatelessWidget`**, all variables must be declared **`final`**
 
@@ -161,6 +175,8 @@
 - **`FlatButton`** is **`deprecated`**, so use **`TextButton`** instead.
 
 ## Section 12 : BMI Calculator App (Lessons 125, 126, 128, 129)
+
+##### [Go back to Index](#index)
 
 - **`@required`** is replaced by just **`required` (Without @ sign)**
 
@@ -249,6 +265,8 @@
   - Here, making it **`Nullable`** will do the job. Rest of the code will work perfectly fine.
 
 ## Section 13 : Clima App (Lesson 140)
+
+##### [Go back to Index](#index)
 
 - When running this app on a **Physical Device**, you will need **Internet Permisson** because app is sending a **`request`** to **`API`**
 

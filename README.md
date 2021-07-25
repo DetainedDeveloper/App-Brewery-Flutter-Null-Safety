@@ -26,6 +26,32 @@
 
 - Read more : [**Sound Null Safety**](https://dart.dev/null-safety), [**Understanding Null Safety**](https://dart.dev/null-safety/understanding-null-safety), [**Null Safety in Flutter**](https://flutter.dev/docs/null-safety)
 
+## Common Issues and Fixes
+
+#### 1. Using old Flutter SDK?
+
+- Use latest **`Flutter SDK`**, currently I am using **`2.2`** in **`stable channel`**
+
+  - To upgrade old one, run **`flutter upgrade`** in your **`terminal / command prompt (cmd)`**
+
+#### 2. **`Android license status unknown`**
+
+- There are couple of things that can cause this, I'll keep adding them in future! For now I have these solutions,
+
+  ##### Solution 1. Accept the new ones!
+
+  - Just run **`flutter doctor --android-licenses`**
+
+  - Normally, this does the job. If it doesn't, go ahead.
+
+  ##### Solution 2. Install / Update SDK Command Line Tools
+
+  - Select **`Android SDK Command Line Tools`** and click **`Apply`**
+
+  - A dialog will pop up and ask you if you want to install these. Click Yes/OK and let it install, after that, close **`Android Studio`** and **`restart`** it.
+  
+  <img src="https://github.com/DetainedDeveloper/App-Brewery-Flutter-Null-Safety/blob/master/images/guide/android_studio_sdk_tools.png?raw=true" width=506 height=378>
+
 ## Resources
 
 #### 1. Try out Null Safety on [DartPad](https://dartpad.dev/?null_safety=true)

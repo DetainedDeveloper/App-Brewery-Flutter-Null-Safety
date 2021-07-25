@@ -72,11 +72,25 @@
 
   ##### Solution 2. Install / Update SDK Command Line Tools
 
+  - Open Settings panel by,
+  
+    - **`File > Settings`** (**Windows and Linux**)
+
+    - **`Android Studio > Preferences`** (**Mac**)
+
+  - Then navigate to,
+  
+    **`Appearance & Behavior > System Settings > Android SDK`**
+
+  - Select the **`SDK Tools` Tab**
+
   - Select **`Android SDK Command Line Tools`** and click **`Apply`**
 
-  - A dialog will pop up and ask you if you want to install these. Click Yes/OK and let it install, after that, close **`Android Studio`** and **`restart`** it.
+  - A dialog will pop up and ask you if you want to install these.
   
-  <img src="https://github.com/DetainedDeveloper/App-Brewery-Flutter-Null-Safety/blob/master/images/guide/android_studio_sdk_tools.png?raw=true" width=506 height=378>
+    Click Yes/OK and let it install, after that, close **`Android Studio`** and **`restart`** it.
+  
+    <img src="https://github.com/DetainedDeveloper/App-Brewery-Flutter-Null-Safety/blob/master/images/guide/android_studio_sdk_tools.png?raw=true" width=506 height=378>
 
 ## Resources
 
@@ -303,4 +317,4 @@
     </manifest>
     ```
 
-  - **`iOS` :** I don't know, I don't have an iOS device!
+  - **`iOS` :** I don't know, I don't have an **`iOS`** device!

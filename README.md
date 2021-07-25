@@ -92,6 +92,16 @@
   
     <img src="https://github.com/DetainedDeveloper/App-Brewery-Flutter-Null-Safety/blob/master/images/guide/android_studio_sdk_tools.png?raw=true" width=506 height=378>
 
+#### 3. Option to create a new **`package`** is missing
+
+  - When I first encountered this issue, I thought there must be something wrong with just this particular update.
+
+  - I searched it online, posted on reddit, twitter, but found nothing.
+
+  - Later on, I got to know that **`New > Package`** and **`New > Directory (Folder)`** options have now merged!
+
+  - So, to create a new **`package`** or just a **`folder`**, simply use **`New > Directory`** option.
+
 ## Resources
 
 ##### [Go back to Index](#index)

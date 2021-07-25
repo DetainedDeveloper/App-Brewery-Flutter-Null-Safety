@@ -18,6 +18,12 @@
 
 #### 2. [Common issues and fixes](#common-issues-and-fixes)
 
+  1. #### [Using old Flutter SDK?](#1-using-old-flutter-sdk)
+  
+  2. #### [Android license status unknown](#2-android-license-status-unknown)
+  
+  3. #### [Option to create a new package is missing](#3-option-to-create-a-new-package-is-missing)
+
 #### 3. [Resources](#resources)
 
 #### 4. [Code to Update](#code-to-update)

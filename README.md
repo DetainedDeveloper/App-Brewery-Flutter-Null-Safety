@@ -286,7 +286,7 @@
   - Because **`GestureDetector`**'s **`onTap`** propery wants **`void Function()?`** as argument.
 
 - In **Lesson 128**, **`_InputPageState`** has a new variable which haven't been initialized. As I already told you, you must initialize them or make them **`Nullable`**.
-  ```
+  ```dart
   class _InputPageState extends State<InputPage> {
     Gender? selectedGender;
   }

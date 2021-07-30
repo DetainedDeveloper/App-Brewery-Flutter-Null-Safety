@@ -165,7 +165,7 @@
   
   - All you need to do is open **`android > build.gradle` (Project Level `gradle` file)**
   
-  - Inside **`buildscript { }`**, you'll find **`ext.kotlin_version` (Line 2 in file)**
+  - Inside **`buildscript {}`**, you'll find **`ext.kotlin_version` (Line 2 in file)**
   
   - Replace whatever version it is with [**Latest Stable Kotlin Version**](https://kotlinlang.org/docs/releases.html#release-details)
   
@@ -186,7 +186,7 @@
 - Due to **`null safety`**, all variables in a class must have a value assigned, when created. If not, they must be declared **`Nullable`** intentionally. This rule also applies to **`Stateless`** and **`Stateful`** widgets. On top of that, in classes extending **`StatelessWidget`**, all variables must be declared **`final`**
 
 - So, make your **`Question`** class like this,
-  ```
+  ```dart
   class Question {
     String questionText;
     bool questionAnswer;
@@ -215,7 +215,7 @@
   - This part is tricky, because now you can't have null arguments anymore.
   
   - So, you must have to intentionally make it **`Nullable`**, by adding **`?`** to it, like this,
-    ```
+    ```dart
     class ReusableCard extends StatelessWidget {
       final Color colour;
       final Widget? cardChild;
@@ -237,7 +237,7 @@
   - Use it like **`ReusabledCard(color: Colors.amber)`** and your app won't crash.
 
 - But, it's not same for **`IconContent`**, **`Icon`** can have **`null`** value, but **`Text`** can't!
-    ```
+    ```dart
     class IconContent extends StatelessWidget {
       final IconData? icon;
       final String? label;
@@ -261,7 +261,7 @@
   - Even if you don't pass any arguments like **`IconContent()`**, your app won't crash.
 
 - According to **Lesson 129**, **`ReusableCard`** now has a parameter named **`onPress`**, to get it working, use this,
-  ```
+  ```dart
   class ReusableCard extends StatelessWidget {
     final Color colour;
     final Widget? cardChild;
@@ -306,14 +306,14 @@
     
     and add the following line,
 
-    ```
+    ```xml
     <uses-permission android:name="android.permission.INTERNET"/>
     ```
 
     **Keep the existing location permissions** and add this above/below them.
     Add it under **`manifest`** tag, like this,
 
-    ```
+    ```xml
     <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="detaineddeveloper.example.clima">
 

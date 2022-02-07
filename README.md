@@ -8,9 +8,9 @@
 
 - This repository contains notes for **only coding (project) sections** and explains what has changed and what's the difference.
 
-- If something is not covered here, **start a dicussion**, not an issue! I will try to add it then.
+- If something is not covered here, **start a discussion**, not an issue! I will try to add it then.
 
-- Use latest verions of required **`packages`** and **`plugins`**, find them on [**pub.dev**](https://pub.dev/)
+- Use latest versions of required **`packages`** and **`plugins`**, find them on [**pub.dev**](https://pub.dev/)
 
 ## Index
 
@@ -52,7 +52,7 @@
 
 - **Null safety is not your enemy!** It's there you help you so you don't accidentally make something null and crash your app.
 
-- Dart has **`sound null safety`**. Basically, if you're writng any code that compiler thinks might end up being **`null`**, it will notify you right away! Isn't that cool?
+- Dart has **`sound null safety`**. Basically, if you're writing any code that compiler thinks might end up being **`null`**, it will notify you right away! Isn't that cool?
 
 - Read more : [**Sound Null Safety**](https://dart.dev/null-safety), [**Understanding Null Safety**](https://dart.dev/null-safety/understanding-null-safety), [**Null Safety in Flutter**](https://flutter.dev/docs/null-safety)
 
@@ -102,7 +102,7 @@
 
   - When I first encountered this issue, I thought there must be something wrong with just this particular update.
 
-  - I searched it online, posted on reddit, twitter, but found nothing.
+  - I searched it online, posted on Reddit, twitter, but found nothing.
 
   - Later on, I got to know that **`New > Package`** and **`New > Directory (Folder)`** options have now merged!
 
@@ -127,7 +127,7 @@
 
 - You right clicked on **`res`** folder but didn't find **`Image Asset`**? Don't worry Follow these steps,
 
-  - Right click on **`android`** folder and a pop-up menu wiil open up.
+  - Right click on **`android`** folder and a pop-up menu will open up.
   
     From that, select **`Flutter > Open Android Module in Android Studio`**
 
@@ -161,7 +161,7 @@
 
 ##### [Go back to Index](#index)
 
-- Getting a LOOONNNGGG error when trying to use **`audioplayers` plugin**?
+- Getting a lengthy error when trying to use **`audioplayers` plugin**?
   
   - All you need to do is open **`android > build.gradle` (Project Level `gradle` file)**
   
@@ -234,7 +234,7 @@
     }
     ```
     
-  - Use it like **`ReusabledCard(color: Colors.amber)`** and your app won't crash.
+  - Use it like **`ReusableCard(color: Colors.amber)`** and your app won't crash.
 
 - But, it's not same for **`IconContent`**, **`Icon`** can have **`null`** value, but **`Text`** can't!
     ```dart
@@ -283,7 +283,7 @@
     }
   }
   ```
-  - Because **`GestureDetector`**'s **`onTap`** propery wants **`void Function()?`** as argument.
+  - Because **`GestureDetector`**'s **`onTap`** property wants **`void Function()?`** as argument.
 
 - In **Lesson 128**, **`_InputPageState`** has a new variable which haven't been initialized. As I already told you, you must initialize them or make them **`Nullable`**.
   ```dart
@@ -298,7 +298,7 @@
 
 ##### [Go back to Index](#index)
 
-- When running this app on a **Physical Device**, you will need **Internet Permisson** because app is sending a **`request`** to **`API`**
+- When running this app on a **Physical Device**, you will need **Internet Permission** because app is sending a **`request`** to **`API`**
 
   - **`Android` :** For this, open **`AndroidManifest.xml`** by navigating to,
     
@@ -317,10 +317,10 @@
     <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="detaineddeveloper.example.clima">
 
-      <uses-permission android:name="android.permission.ACCESSS_COARSE_LOCATION"/>
-      <uses-permission android:name="android.permission.ACCESSS_FINE_LOCATION"/>
+      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
-      <!--Keep the existing location permisions above (whichever you have added previously)-->
+      <!--Keep the existing location permissions above (whichever you have added previously)-->
       <uses-permission android:name="android.permission.INTERNET"/>
     
       <application

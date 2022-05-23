@@ -334,3 +334,56 @@
     ```
 
   - **`iOS` :** I don't know, I don't have an **`iOS`** device!
+
+
+## Section 14 : Flash Chat (Lessons 169 194)
+
+##### [Go back to Index](#index)
+
+- After adding the dependencies in the AndroidManifest.xml file and the build.gradle files, you might get this error:
+  ```
+  ERROR:D8: Cannot fit requested classes in a single dex file (# methods: 104246 > 65536)
+  com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:
+  The number of method references in a .dex file cannot exceed 64K.
+   ...
+  * What went wrong:
+    Execution failed for task ':app:mergeExtDexDebug'.
+  > A failure occurred while executing com.android.build.gradle.internal.tasks.DexMergingTaskDelegate
+  > There was a failure while executing work items
+  > A failure occurred while executing com.android.build.gradle.internal.tasks.DexMergingWorkAction
+  > com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:
+  The number of method references in a .dex file cannot exceed 64K.
+  Learn how to resolve this issue at https://developer.android.com/tools/building/multidex.html
+  ```
+
+To fix this issue, inside the app-level build.gradle file, **`../android/app/build.gradle`**,
+the *minSdkVersion* property under the *defaultConfig* block in the *android* block should be set to **`21`** to avoid error.
+This is because multiDex support is enabled by default for sdkVersion 21.
+
+- Additional dependencies have to be added to the app-level build.gradle file, **`../android/app/build.gradle`**:
+  ```
+  dependencies {
+    ...
+    implementation platform('com.google.firebase:firebase-bom:30.0.1')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+    ...
+  }
+  ```
+
+- To enable internet connectivity on a physical device, add `<uses-permission android:name="android.permission.INTERNET" />` to the AndroidManifest.xml file.
+
+- Before the FirebaseAuth can work, we must initialize it in the **main.dart** file:
+  ```dart
+  import 'package:firebase_core/firebase_core.dart';
+
+  Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
+  runApp(FlashChat());
+  }
+  ```
+
+- In the **chat_screen.dart** file, the object type for the *loggedInUser*, **`FirebaseUser`**, should be replaced with **`User`**

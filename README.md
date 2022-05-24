@@ -387,3 +387,37 @@ This is because multiDex support is enabled by default for sdkVersion 21.
   ```
 
 - In the **chat_screen.dart** file, the object type for the *loggedInUser*, **`FirebaseUser`**, should be replaced with **`User`**
+
+- The **QuerySnapshot** property, **documents**, has been renamed to **docs**. 
+
+- The sorting of the messages in the chat screen is still chaotic even after the reversals in *lesson 191*.
+  To fix this problem, we need to add a **timestamp** field to the messages and sort and sort the collection based on it as shown here:
+  ```
+  ...
+  TextButton(
+    onPressed: () {
+      controller.clear();
+      _firestore.collection('messages').add({
+        'text': messageText,
+        'sender': loggedInUser.email,
+        "timestamp": FieldValue.serverTimestamp(), // Here is the **timestamp** field.
+      });
+    },
+  ...
+  ```
+  
+  We use the server time instead of generating a timestamp with the user device because:
+  - Our users mey be in different timezones so the time differences will affect our app.
+  - Some devices could be set to incorrect times.
+
+  ```
+  class MessagesStream extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore.collection('messages').orderBy('timestamp').snapshots(), // Here, the **.orderBy** sorts the messages according to the server timestamps.
+      builder: (context, snapshot) {
+      ...
+  
+  ```

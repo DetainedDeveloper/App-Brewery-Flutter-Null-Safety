@@ -329,9 +329,9 @@ For Example;
 
 ##### [Go back to Index](#index)
 
-- When running this app on a **Physical Device**, you will need **Internet Permission** because app is sending a **`request`** to **`API`**
+- When running this app on a **Physical Device** running on: 
 
-  - **`Android` :** For this, open **`AndroidManifest.xml`** by navigating to,
+  - **`Android` :** you will need **Internet Permission** because the app sends a **`request`** to the OpenWeatherMap **`API`**. For this, open **`AndroidManifest.xml`** by navigating to,
     
     **`android > app > src > main > AndroidManifest.xml`**
     
@@ -364,7 +364,93 @@ For Example;
     </manifest>
     ```
 
-  - **`iOS` :** I don't know, I don't have an **`iOS`** device!
+  - **`iOS` :**
+
+    - There is **no required Internet Permission**.
+    - When launching the app, you will probably have a message asking you for **Local Network Permission**: it is **not required** either.
+    - To run your app on an iOS physical device, make sure that you selected a **Development Team** (refer to **Section 4 - Lesson 32** of the course):
+      1. Open the Flutter project's Xcode target with open ios/Runner.xcworkspace
+      2. Select the 'Runner' project in the navigator then the 'Runner' target in the project settings
+      3. Make sure a 'Development Team' is selected under Signing & Capabilities > Team. You may need to:
+          1. Log in with your Apple ID in Xcode first
+          2. Ensure you have a valid unique Bundle ID (for example *"com.put-your-name-here.clima"*)
+          3. Register your device with your Apple Developer Account
+          4. Let Xcode automatically provision a profile for your app
+      4. Select your iOS physical device as the target and click the Run button
+        - You may have several pop-up asking you that "codesign" wants access to your Apple Development Team's key. Accept by entering your password (it's your Mac session's password, not your Apple ID's password)
+        - **ATTENTION:** if you don't activate Internet on your physical device, it is likely that you will see a pop-up on your screen telling you that **an Internet connection is required** to verify if the developer (you) is reliable, so you would need to activate your Internet connection
+
+- If your app cannot retrieve your current location on your **`iOS` physical device** it is probably because the [geolocator 8.2.1 flutter package](https://pub.dev/packages/geolocator) has been updated and you will need to apply the following changes:
+  - As of now (June 2022), the geolocator package indicates to add both **`NSLocationWhenInUseUsageDescription`** and **`NSLocationAlwaysUsageDescription`** permissions to access **Location Service**. Since iOS 11, the **`NSLocationAlwaysUsageDescription`** property key is [deprecated](https://developer.apple.com/documentation/bundleresources/information_property_list/nslocationalwaysusagedescription). Use instead **only one** of those permissions:
+    - the **`NSLocationAlwaysAndWhenInUseUsageDescription`** to enable the **Location Service** in foreground and background,
+    - the **`NSLocationWhenInUseUsageDescription`** to enable the service in foreground only, as [recommended by Apple](https://developer.apple.com/documentation/corelocation/choosing_the_location_services_authorization_to_request).
+
+    To do so, open **`Info.plist`** file by navigating to:
+
+    **`ios > Runner > Info.plist`**
+
+    and add the following line right under the `<dict>` tag (your can customise the message in the `<string>` tag, it has to explain why your app needs to have access to that particular permission):
+
+    ```xml
+    <dict>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>This app needs access to your location to provide weather data of your current location.</string>
+    </dict>
+    ```
+
+  - In your code you will have to explicitly ask the user for permission to use the **Location Service**. For that, update the **`getCurrentLocation()`** method in the **`location.dart`** file:
+    - Short version:
+      ```dart
+      Future<void> getCurrentLocation() async {
+        try {
+          LocationPermission locationPermission = await Geolocator.requestPermission();
+
+          if (LocationPermission.whileInUse == locationPermission || LocationPermission.always == locationPermission) {
+            Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.lowest);
+            latitude = position.latitude;
+            longitude = postion.longitude;
+          }
+        } catch (e) {
+          print(e);
+        }
+      }
+      ```
+    - Long but more complete version:
+      ```dart
+      Future<void> getCurrentLocationCheckingPermissions() async {
+        bool serviceEnabled;
+        LocationPermission locationPermission;
+
+        // Test if location services are enabled.
+        serviceEnabled = await Geolocator.isLocationServiceEnabled();
+        if (!serviceEnabled) {
+          // Location services are not enabled don't continue
+          // accessing the position and request users of the
+          // App to enable the location services.
+          return Future.error(
+              'Location services are disabled. Please activate them.');
+        } else {
+          locationPermission = await Geolocator.checkPermission();
+          if (LocationPermission.unableToDetermine == locationPermission) {
+            return Future.error(
+                'Unable to determine if location permissions are enabled.');
+          } else if (LocationPermission.denied == locationPermission ||
+              LocationPermission.deniedForever == locationPermission) {
+            print(Future.error('Location permissions are denied: ' +
+                locationPermission.toString()));
+            locationPermission = await Geolocator.requestPermission();
+          }
+
+          if (LocationPermission.whileInUse == locationPermission ||
+              LocationPermission.always == locationPermission) {
+            Position position = await Geolocator.getCurrentPosition(
+                desiredAccuracy: LocationAccuracy.lowest);
+            this.latitude = position.latitude;
+            this.longitude = position.longitude;
+          }
+        }
+      }
+      ```
 
 
 ## Section 14 : Flash Chat (Lessons 169 194)

@@ -56,38 +56,6 @@
 
 - Read more : [**Sound Null Safety**](https://dart.dev/null-safety), [**Understanding Null Safety**](https://dart.dev/null-safety/understanding-null-safety), [**Null Safety in Flutter**](https://flutter.dev/docs/null-safety)
 
-### 3. Migrating V2
-
-As we know [**Sound Null Safety**](https://dart.dev/null-safety) was added to **Flutter 2**. 
-
-And before **Flutter 2** old apps don't have [**Sound Null Safety**](https://dart.dev/null-safety) feature. 
-
-So we need to fix this, and thank [**Flutter**](https://flutter.dev/) we have simple way to do.
-
-To fix this issue easily , 
-
-Delete all files and folders in App folder **except** course materials **lib folder-Assets-Fonts-pubspec.yaml**
-
-For Example;
- 
-![ww](https://user-images.githubusercontent.com/84624853/151516481-b0eb6102-215c-4cf7-9774-fccffc2e9245.jpg)
-
-
-and then go to **Terminal** while its in project folder and
-
-**write this line to Terminal**
-
-`flutter create .`
-
-For Example;
-
-![crate](https://user-images.githubusercontent.com/84624853/151516510-ae00c14b-5d79-42fc-9801-3dc9c822bfe4.jpg)
-
-
-**And then Flutter starts rebuilding application with migrated version of it. And Done!**
-
-Hope this works.
-
 ## Common Issues and Fixes
 
 ##### [Go back to Index](#index)
@@ -139,6 +107,37 @@ Hope this works.
   - Later on, I got to know that **`New > Package`** and **`New > Directory (Folder)`** options have now merged!
 
   - So, to create a new **`package`** or just a **`folder`**, simply use **`New > Directory`** option.
+
+#### 4. Migrating V2
+
+As we know [**Sound Null Safety**](https://dart.dev/null-safety) was added to **Flutter 2**. 
+
+And before **Flutter 2** old apps don't have [**Sound Null Safety**](https://dart.dev/null-safety) feature. 
+
+So we need to fix this, and thank [**Flutter**](https://flutter.dev/) we have simple way to do.
+
+To fix this issue easily , 
+
+Delete all files and folders in App folder **except** course materials **lib folder-Assets-Fonts-pubspec.yaml**
+
+For Example;
+ 
+![ww](https://user-images.githubusercontent.com/84624853/151516481-b0eb6102-215c-4cf7-9774-fccffc2e9245.jpg)
+
+
+And then go to **Terminal** while its in project folder and
+
+**Write this line to Terminal**
+
+`flutter create .`
+
+For Example;
+
+![crate](https://user-images.githubusercontent.com/84624853/151516510-ae00c14b-5d79-42fc-9801-3dc9c822bfe4.jpg)
+
+
+**Then Flutter starts rebuilding application with migrated version of it. And Done!**
+
 
 ## Resources
 

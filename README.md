@@ -40,6 +40,8 @@
   
   6. #### [Section 13 : Clima App](#section-13--clima-app-lesson-140)
 
+  7. #### [Section 14 : Flash Chat App](#section-14--flash-chat-app-lessons-169-194)
+
 ## Terminology
 
 ##### [Go back to Index](#index)
@@ -453,7 +455,7 @@ For Example;
       ```
 
 
-## Section 14 : Flash Chat (Lessons 169 194)
+## Section 14 : Flash Chat App (Lessons 169 194)
 
 ##### [Go back to Index](#index)
 

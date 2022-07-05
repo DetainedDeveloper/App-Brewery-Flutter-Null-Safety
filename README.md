@@ -23,7 +23,9 @@
   2. #### [Android license status unknown](#2-android-license-status-unknown)
   
   3. #### [Option to create a new package is missing](#3-option-to-create-a-new-package-is-missing)
-
+  
+  4. #### [Migrating V2](#4-migrating-v2)
+  
 #### 3. [Resources](#resources)
 
 #### 4. [Code to Update](#code-to-update)
@@ -112,33 +114,33 @@
 
 #### 4. Migrating V2
 
-As we know [**Sound Null Safety**](https://dart.dev/null-safety) was added to **Flutter 2**. 
+  - As we know [**Sound Null Safety**](https://dart.dev/null-safety) was added to **Flutter 2**. 
 
-And before **Flutter 2** old apps don't have [**Sound Null Safety**](https://dart.dev/null-safety) feature. 
+  - And before **Flutter 2** old apps don't have [**Sound Null Safety**](https://dart.dev/null-safety) feature. 
 
-So we need to fix this, and thank [**Flutter**](https://flutter.dev/) we have simple way to do.
+  - So we need to fix this, and thank [**Flutter**](https://flutter.dev/) we have simple way to do.
 
-To fix this issue easily , 
+  - To fix this issue easily , 
 
-Delete all files and folders in App folder **except** course materials **lib folder-Assets-Fonts-pubspec.yaml**
+    * Delete all files and folders in App folder **`except`** course materials **`lib` - `assets` - `fonts` - `pubspec.yaml` etc.**
 
-For Example;
+    * For Example;
  
 ![ww](https://user-images.githubusercontent.com/84624853/151516481-b0eb6102-215c-4cf7-9774-fccffc2e9245.jpg)
 
 
-And then go to **Terminal** while its in project folder and
+  - And then go to **`Terminal`** while its in project folder and
 
-**Write this line to Terminal**
+    - **Write this line to `Terminal`**
 
-`flutter create .`
+      - `flutter create .`
 
-For Example;
+  - For Example;
 
 ![crate](https://user-images.githubusercontent.com/84624853/151516510-ae00c14b-5d79-42fc-9801-3dc9c822bfe4.jpg)
 
 
-**Then Flutter starts rebuilding application with migrated version of it. And Done!**
+  - **Then Flutter starts rebuilding application with migrated version of it. And Done!**
 
 
 ## Resources

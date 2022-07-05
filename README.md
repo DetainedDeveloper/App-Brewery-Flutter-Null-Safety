@@ -382,7 +382,7 @@
           4. Let Xcode automatically provision a profile for your app
       4. Select your iOS physical device as the target and click the Run button
         - You may have several pop-up asking you that "codesign" wants access to your Apple Development Team's key. Accept by entering your password (it's your Mac session's password, not your Apple ID's password)
-        - **ATTENTION:** if you don't activate Internet on your physical device, it is likely that you will see a pop-up on your screen telling you that **an Internet connection is required** to verify if the developer (you) is reliable, so you would need to activate your Internet connection
+        - :exclamation: **ATTENTION:** if you don't activate Internet on your physical device, it is likely that you will see a pop-up on your screen telling you that **an Internet connection is required** to verify if the developer (you) is reliable, so you would need to activate your Internet connection
 
 - If your app cannot retrieve your current location on your **`iOS` physical device** it is probably because the [geolocator 8.2.1 flutter package](https://pub.dev/packages/geolocator) has been updated and you will need to apply the following changes:
   - As of now (June 2022), the geolocator package indicates to add both **`NSLocationWhenInUseUsageDescription`** and **`NSLocationAlwaysUsageDescription`** permissions to access **Location Service**. Since iOS 11, the **`NSLocationAlwaysUsageDescription`** property key is [deprecated](https://developer.apple.com/documentation/bundleresources/information_property_list/nslocationalwaysusagedescription). Use instead **only one** of those permissions:
@@ -457,55 +457,209 @@
       ```
 
 
-## Section 14 : Flash Chat App (Lessons 169 194)
+## Section 14 : Flash Chat App (Lessons 169-194)
 
 ##### [Go back to Index](#index)
 
-- After adding the dependencies in the AndroidManifest.xml file and the build.gradle files, you might get this error:
-  ```
-  ERROR:D8: Cannot fit requested classes in a single dex file (# methods: 104246 > 65536)
-  com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:
-  The number of method references in a .dex file cannot exceed 64K.
-   ...
-  * What went wrong:
-    Execution failed for task ':app:mergeExtDexDebug'.
-  > A failure occurred while executing com.android.build.gradle.internal.tasks.DexMergingTaskDelegate
-  > There was a failure while executing work items
-  > A failure occurred while executing com.android.build.gradle.internal.tasks.DexMergingWorkAction
-  > com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:
-  The number of method references in a .dex file cannot exceed 64K.
-  Learn how to resolve this issue at https://developer.android.com/tools/building/multidex.html
-  ```
+## Setting up Firebase
 
-To fix this issue, inside the app-level build.gradle file, **`../android/app/build.gradle`**,
-the *minSdkVersion* property under the *defaultConfig* block in the *android* block should be set to **`21`** to avoid error.
-This is because multiDex support is enabled by default for sdkVersion 21.
+Following the Appbrewery course, you should have logged in Firebase with your Google account, and created a Firebase project that will be linked with your Flash Chat Flutter project.
 
-- Additional dependencies have to be added to the app-level build.gradle file, **`../android/app/build.gradle`**:
+### Add Firebase to your Flutter project
+
+- To do so, in the course it is showed that you have to go to your Firebase project and **add a new application**, selecting an **`Android application`** if you plan to deploy your app on Android, and/or an **`iOS application`** if you plan to deploy on iOS.
+- As of now **(July 2022)**, it is now possible to directly add a **`Flutter application`** which will save you a lot of time in configuration :confetti_ball: , so choose that option instead, and follow the instructions that will be displayed:
+
+#### Installing Firebase CLI and connect to it
+
+- Depending on your Operating System (Windows, macOS or Linux), you will find the steps to do on the [documentation](https://firebase.google.com/docs/cli?authuser=0&hl=fr#install_the_firebase_cli).
+- After the installation is done, connect to it by executin the following command in a terminal: **`firebase login`**.
+
+#### Installing Flutter SDK and creating a Flutter project
+
+- If you have arrived this far in the course, you have already installed the Flutter SDK a long time ago!
+- The Flutter project has alo been created already, it's our Flash Chat Flutter project.
+
+
+#### Installing the FlutterFire CLI
+- Open a terminal and run the following command line: **`dart pub global activate flutterfire_cli`** (it doesn't matter in which directory you run this command)
+
+
+#### Executing the FlutterFire CLI
+
+- Before executing the **FlutterFire CLI**, make sure to change your **`Application ID`** for Android, and your **`iOS Bundle ID`** for iOS to make them **unique and personal** (if you have copied the Flash Chat Flutter project from the Appbrewery course, they are defined with their company ID which you have to change to make it your own):
+
+  - **`Application ID`** for Android:
+    - Open the **`build.gradle`** file located under **`android > app > build.gradle`**
+    - Change the **`android > defaultConfig > applicationId`** property (the applicationId should be **co.appbrewery.flash_chat** --> change it for something unique and personal like **com.firstnamelastname.flash_chat**, or something you like that is unique and personal, or your domain name if you own one and wish to use it)
+
+  - **`iOS Bundle ID`** for iOS:
+    - Right-click on the "ios" folder and choose **`Flutter > Open iOS module in Xcode`**
+    - Select "Runner" at the top of the left panel (the "Runner" with the blue icon), and in the center panel go to the **General tab**, then under it go to **`Identity > Bundle Identifier`**
+    - You should find a Bundle Identifier like **co.appbrewery.flashChat** --> change it for something unique and personal like **com.firstnamelastname.flashChat**
+
+- After changing the **`Application ID`** for Android, and/or the **`iOS Bundle Identifier`** for iOS, open a terminal and go to the **ROOT FOLDER** of your Flutter Flash Chat project, then execute the command line given in the instructions: 
+
+  ```shell
+  flutterfire configure --project=YOUR_FIREBASE_PROJECT_ID_HERE
   ```
-  dependencies {
-    ...
-    implementation platform('com.google.firebase:firebase-bom:30.0.1')
-    implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.firebase:firebase-firestore'
-    ...
-  }
+  (You can check what is your Firebase Project ID by either looking on your Firebase account in a browser, or by running the command line **`firebase projects:list`**)
+- After running the previous command, you should find in your Flutter project:
+
+  - **`Flutter`**: your Firebase configuration file under **`lib > firebase_options.dart`** (the most important one, it contains both your Android and your iOS API keys to access Firebase services)
+
+  - **`Android`**: your Firebase configuration file under **`android > app > google-services.json`**
+
+  - **`iOS`**: a Firebase identifying file under **`ios > firebase_app_id_file.json`** (if the course is not updated, you might see that you should have a file called **`GoogleService-Info.plist`** instead under **`ios > Runner > GoogleService-Info.plist`** --> I am not an expert with Firebase, but my guess is that the **`GoogleService-Info.plist`** comes up when you configure your Firebase project by adding an iOS application instead of a Flutter application)
+
+
+#### Initialising Firebase
+
+- To initialise Firebase, start by adding to your Flutter project the **`firebase_core`** plugin:
+  ```shell
+  flutter pub add firebase_core
   ```
-
-- To enable internet connectivity on a physical device, add `<uses-permission android:name="android.permission.INTERNET" />` to the AndroidManifest.xml file.
-
-- Before the FirebaseAuth can work, we must initialize it in the **main.dart** file:
+- Make sure that the Firebase configuration of your Flutter application is updated, by running the following command **in the root folder of your Flutter project directory**:
+  ```shell
+  flutterfire configure
+  ```
+- Then, if everything's fine, in your **`lib/main.dart`** file, change the main method to use the Firebase initialising method **`Firebase.initializeApp()`**
   ```dart
   import 'package:firebase_core/firebase_core.dart';
+  import 'package:flash_chat/firebase_options.dart';
+
 
   Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+    WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(FlashChat());
+    runApp(FlashChat());
   }
   ```
+  :exclamation::exclamation: It is **FUNDAMENTAL** that you add the parameter **`options: DefaultFirebaseOptions.currentPlatform`** because it will specify the configuration that will be used depending on the platform your application is running on (Android, iOS, macOS, Windows or Linux) --> feel free to explore the code of **`DefaultFirebaseOptions.currentPlatform`**, you will notice that it corresponds to your **`lib > firebase_options.dart`**, and that it simply verifies the platorm on which your application is running, then returns the appropriate configuration.
+
+- Finally, stop your application if it was running (to make a fresh start), and try to run it on Android and on iOS to verify that everything works on both platform (try to run it as well on macOS, Windows and/or Linux if you are developing for those platforms).
+
+  If you encounter some errors, please have a look below to find some fixes that may be of help:
+
+  - **`On Android`:** 
+
+    - The **`firebase_core`** plugin (as well as all [Firebase plugins](https://firebase.google.com/docs/flutter/setup?authuser=0&hl=fr&platform=ios#available-plugins)) requires at least the **`Android SDK version 31`** now (July 2022), so make the modification if needed under **`android > app > build.gradle`**:
+
+    ```gradle
+      android {
+        compileSdkVersion 31
+        ...
+      }
+    ```
+
+  - **`On iOS`:** 
+
+    - There was no problem encountered on my side. Please add more details about yours in the **Discussions** section if you have troubles here.
+
+
+#### Adding Firebase Plugins
+
+- Add the **`firebase_auth`** and the **`cloud_firestore`** plugins in your Flutter project:
+  ```shell
+    flutter pub add firebase_auth
+    flutter pub add cloud_firestore
+  ```
+  Click on **`Pub Get`** to make sure that you get the dependencies in your project.
+
+
+- **`On Android`**:
+
+  - You may need to upgrade the **`minSdkVersion`** of the Android part of your Flutter project, under **`android > app > build.gradle`**, because some Firebase plugins have a minimal requirement of the SDK version 21 now (July 2022), like the **`cloud_firestore`** plugin for instance, so apply that change:
+    ```gradle
+      android {
+        ...
+        defaultConfig {
+          ...
+          minSdkVersion 21
+          ...
+        }
+        ...
+      }
+    ```
+
+  - Those plugins require as well the **`Android SDK version 31`**, so make sure that you have it updated in your **`android > app > build.gradle`**:
+
+    ```gradle
+      android {
+        compileSdkVersion 31
+        ...
+      }
+    ```
+
+
+  - After adding the dependencies in the AndroidManifest.xml file and the build.gradle files, you might get this error:
+    ```shell
+      ERROR:D8: Cannot fit requested classes in a single dex file (# methods: 104246 > 65536)
+      com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:
+      The number of method references in a .dex file cannot exceed 64K.
+       ...
+      * What went wrong:
+        Execution failed for task ':app:mergeExtDexDebug'.
+      > A failure occurred while executing com.android.build.gradle.internal.tasks.DexMergingTaskDelegate
+      > There was a failure while executing work items
+      > A failure occurred while executing com.android.build.gradle.internal.tasks.DexMergingWorkAction
+      > com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:
+      The number of method references in a .dex file cannot exceed 64K.
+      Learn how to resolve this issue at https://developer.android.com/tools/building/multidex.html
+    ```
+
+    To fix this issue, inside the app-level build.gradle file, **`../android/app/build.gradle`**,
+    the *minSdkVersion* property under the *defaultConfig* block in the *android* block should be set to **`21`** to avoid error.
+    This is because multiDex support is enabled by default for sdkVersion 21.
+
+  - Additional dependencies have to be added to the app-level build.gradle file, **`../android/app/build.gradle`**:
+    ```
+    dependencies {
+      ...
+      implementation platform('com.google.firebase:firebase-bom:30.0.1')
+      implementation 'com.google.firebase:firebase-auth'
+      implementation 'com.google.firebase:firebase-firestore'
+      ...
+    }
+    ```
+
+  - To enable internet connectivity on a physical device, add `<uses-permission android:name="android.permission.INTERNET" />` to the AndroidManifest.xml file.
+
+
+
+- **`On iOS`** :
+  
+  - Before running the application to check if everything is fine, update **`CocoaPods`**:
+    ```shell
+      pod repo update
+      sudo gem install cocoapods
+      pod setup
+    ```
+  - Run your app to check if it's working:
+    - If you encounter the following error:
+      ```shell
+        Error output from Cocoapods:
+          [!] Automatically assigning platform 'iOS' with version '9.0' on target 'Runner' because no platform was specified. Please specify a platform for this target in your Podfile.android
+        Error running pod install
+        Error launching application on iPhone.
+      ```
+      update your **`Podfile`** file under **`ios > Podfile`** by uncommenting the "platform" line and changing the version from 9.0 to 10.0 --> this specifies the minimum OS version that you are going to support for the pod project:
+      ```
+        # Uncomment this line to define a global platform for your project
+        platform :ios, '10.0'
+      ```
+      then try to run your app again (it might take a long time, it took me around 30 minutes to make all the cocoapods installation).
+      You should see in the "Run tab" the information **"Running pod install..."**: Flutter is initiating that to be able to install all of the Firebase plugin packages (firebase_core, firebase_auth and cloud_firestore) as cocoapods to our iOS app.
+
+
+
+
+
+### Code Part
+
+
 
 - In the **chat_screen.dart** file, the object type for the *loggedInUser*, **`FirebaseUser`**, should be replaced with **`User`**
 

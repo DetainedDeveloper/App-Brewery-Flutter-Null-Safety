@@ -461,11 +461,11 @@
 
 ##### [Go back to Index](#index)
 
-## Setting up Firebase
+### Setting up Firebase
 
 Following the Appbrewery course, you should have logged in Firebase with your Google account, and created a Firebase project that will be linked with your Flash Chat Flutter project.
 
-### Add Firebase to your Flutter project
+#### Add Firebase to your Flutter project
 
 - To do so, in the course it is showed that you have to go to your Firebase project and **add a new application**, selecting an **`Android application`** if you plan to deploy your app on Android, and/or an **`iOS application`** if you plan to deploy on iOS.
 - As of now **(July 2022)**, it is now possible to directly add a **`Flutter application`** which will save you a lot of time in configuration :confetti_ball: , so choose that option instead, and follow the instructions that will be displayed:
@@ -660,14 +660,100 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
 ### Code Part
 
 
+- In **chat_screen.dart** file, the object type for the *loggedInUser* was previously **`FirebaseUser`**, and should now be replaced with **`User`**. Moreover, the Firestore instance is now retrieved with `FirebaseFirestore.instance` instead of `Firestore.instance`:
 
-- In the **chat_screen.dart** file, the object type for the *loggedInUser*, **`FirebaseUser`**, should be replaced with **`User`**
+  ```dart
+    class _ChatScreenState extends State<ChatScreen> {
+      final _firestore = FirebaseFirestore.instance;
+      final _auth = FirebaseAuth.instance;
+      User loggedInUser;
+      String message;
+      ...
+    }
 
-- The **QuerySnapshot** property, **documents**, has been renamed to **docs**.
-
-- The sorting of the messages in the chat screen is still chaotic even after the reversals in *lesson 191*.
-  To fix this problem, we need to add a **timestamp** field to the messages and sort and sort the collection based on it as shown here:
   ```
+
+
+- When retrieving the messages from your Firestore Database, you will notice some changes in the API:
+  
+  - The `getDocuments` method has been renamed to `get`:
+    ```dart
+      _firestore.collection('messages').getDocuments(); // <-- BEFORE
+
+      _firestore.collection('messages').get(); // <-- NOW
+    ```
+
+  -  The **QuerySnapshot** property, **documents**, has been renamed to **docs**.
+      ```dart
+        void getMessages() async {
+          final messages = await _firestore.collection('messages').get();
+
+          for (var message in messages.documents) { // <-- BEFORE
+            print(message.data());
+          }
+
+          for (var message in messages.docs) { // <-- NOW
+            print(message.data());
+          }
+        }
+      ```
+
+- When using a `StreamBuilder`, it is better to give it the type of data that will stream through, as it will greatly help you when manipulating the `AsyncSnapshot` and the data it contains (`snapshot.data`) - you can find the type of data by looking at the return type of the Firestore snapshots method (`_firestore.collection('messages').snapshots()`):
+  ```dart
+    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>( // <-- By adding the type <QuerySnapshot<Map<String, dynamic>>...
+      stream: _firestore.collection('messages').snapshots(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+
+        final messages = snapshot.data.docs; // <-- ... you will be able to access the 'docs' property because we manipulate a Stream of QuerySnapshot
+
+        for (var message in messages) {
+          final messageText = message.data()['text'];  // <-- ... you will be able to access the Map with `message.data()` because we manipulate a Stream of QuerySnapshot of Map<String, dynamic>
+          final sender = message.data()['sender'];
+          ...
+        }
+        ...
+      },
+    );
+  ```
+
+
+
+
+- To deal with the case where we would have no data in our `StreamBuilder`, we do add a `CircularProgressIndicator` after checking the value of `!snapshot.hasData`. To center it on the screen, add a margin using `MediaQuery` to retrieve the height of the screen (if you want to see how it looks like, you can simply temporarily change the if condition with `true`):
+  ```dart
+    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: _firestore.collection('messages').snapshots(),
+      builder: (context, snapshot) {
+
+        if (!snapshot.hasData) { // <-- change it temporarily to 'if (true)' to quickly see the result
+          return Container(
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.lightBlueAccent,
+            ),
+          );
+        }
+        ...
+      },
+    );
+  ```
+  :exclamation::information_source: To avoid your `CircularProgressIndicator` to be stretched horizontally and look weird, make sure that the column in which your `MessagesStream` is into doesn't have the property **`crossAxisAlignment: CrossAxisAlignment.stretch`**:
+  ```dart
+    body: SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // crossAxisAlignment: CrossAxisAlignment.stretch, // <-- remove this if you have it
+        children: <Widget>[
+          MessagesStream(),
+          Container(...),
+          ...
+  ```
+
+
+- The sorting of the messages in the chat screen is still chaotic even after the reversal in ***lesson 191***.
+  To fix this problem, we need to add a **timestamp** field to the messages and sort the collection based on it as shown here:
+  ```dart
   ...
   TextButton(
     onPressed: () {
@@ -675,17 +761,17 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
       _firestore.collection('messages').add({
         'text': messageText,
         'sender': loggedInUser.email,
-        "timestamp": FieldValue.serverTimestamp(), // Here is the **timestamp** field.
+        'timestamp': FieldValue.serverTimestamp(), // Here is the **timestamp** field.
       });
     },
   ...
   ```
 
   We use the server time instead of generating a timestamp with the user device because:
-  - Our users mey be in different timezones so the time differences will affect our app.
+  - Our users may be in different timezones so the time differences will affect our app.
   - Some devices could be set to incorrect times.
 
-  ```
+  ```dart
   class MessagesStream extends StatelessWidget {
 
   @override
@@ -697,4 +783,24 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
   
   ```
 
-- In the **chat_screen.dart** file, the object type for the *loggedInUser*, **`FirebaseUser`**, should be replaced with **`User`**
+
+### More Configuration on Firebase
+
+#### Cloud Firestore Authorisation and Security Rules
+
+- In ***lesson 192***, we change the **Security Rules** of our **Firestore Database** to allow read and write access to **authentified** users only. In the course, we add the following condition **`request.auth.uid != null`**. As of now (July 2022), we have to change this condition with the following one, regarding the [documentation](https://firebase.google.com/docs/rules/rules-and-auth#identify_users): **`request.auth != null`**
+  ```
+    rules_version = '2';
+    service cloud.firestore {
+      match /databases/{database}/documents {
+        match /{document=**} {
+          allow read, write: if
+              request.auth != null // <-- here it is
+      
+              && request.time < timestamp.date(2022, 8, 5); // <-- if you wish to, you can add this condition that will only allow access to your database **before** a specified date
+        }
+      }
+    }
+  ```
+  :exclamation::exclamation::information_source: Keep in mind that the above rules are not secure enough at all. They are only good for developing purpose, but the moment you release your application in production (or even when you simply share it with other people that you don't know), you have to reinforce your **Security Rules** to be less permisive and have better and stronger control on whose accessing your database, and what data they have access to.
+

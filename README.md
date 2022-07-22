@@ -210,9 +210,12 @@
 
 - **`FlatButton`** is **`deprecated`**, so use **`TextButton`** instead.
 
-  - By the end, the implementation of your **`TextButton`** should look like this:
+- By the end, the implementation of your **`TextButton`** should look like this:
+  
   ```dart
-  return Expanded(
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
       child: TextButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(color),
@@ -222,9 +225,10 @@
         },
       ),
     );
+  }
   ```
-
-- **`AudioCache`** is **`deprecated`**, so use **`AudioPlayer`** instead.
+  
+ - **`AudioCache`** is **`deprecated`**, so use **`AudioPlayer`** instead.
   - By the end, your solution to playing the audio should look like this:
   ```dart
   void playSound(int soundNumber) {
@@ -235,17 +239,14 @@
 
 - An example of a working project as of 16/07/2022 has been linked below:
   - [Link to repository](https://github.com/vpatel-dev/xylophone-flutter)
-
-
   
-
 ## Section 10 : Quizzler App (Lesson 94)
 
 ##### [Go back to Index](#index)
 
 - Due to **`null safety`**, all variables in a class must have a value assigned, when created. If not, they must be declared **`Nullable`** intentionally. This rule also applies to **`Stateless`** and **`Stateful`** widgets. On top of that, in classes extending **`StatelessWidget`**, all variables must be declared **`final`**
 
-- So, make your **`Question`** class like this:
+- So, make your **`Question`** class like this,
   ```dart
   class Question {
     String questionText;
@@ -274,7 +275,7 @@
   
   - This part is tricky, because now you can't have null arguments anymore.
   
-  - So, you must have to intentionally make it **`Nullable`**, by adding **`?`** to it, like this:
+  - So, you must have to intentionally make it **`Nullable`**, by adding **`?`** to it, like this,
     ```dart
     class ReusableCard extends StatelessWidget {
       final Color colour;
@@ -320,7 +321,7 @@
 
   - Even if you don't pass any arguments like **`IconContent()`**, your app won't crash.
 
-- According to **Lesson 129**, **`ReusableCard`** now has a parameter named **`onPress`**, to get it working, use this:
+- According to **Lesson 129**, **`ReusableCard`** now has a parameter named **`onPress`**, to get it working, use this,
   ```dart
   class ReusableCard extends StatelessWidget {
     final Color colour;
@@ -364,14 +365,14 @@
     
     **`android > app > src > main > AndroidManifest.xml`**
     
-    and add the following line:
+    and add the following line,
 
     ```xml
     <uses-permission android:name="android.permission.INTERNET"/>
     ```
 
     **Keep the existing location permissions** and add this above/below them.
-    Add it under **`manifest`** tag, like this:
+    Add it under **`manifest`** tag, like this,
 
     ```xml
     <manifest xmlns:android="http://schemas.android.com/apk/res/android"

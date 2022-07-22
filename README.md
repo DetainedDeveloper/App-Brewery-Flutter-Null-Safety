@@ -210,10 +210,36 @@
 
 - **`FlatButton`** is **`deprecated`**, so use **`TextButton`** instead.
 
-  - **HOWEVER**, for this module, you won't be adding any **`child`** to **`FlatButton`**, this will throw an error because **`child`** is a **`required`** property.
+- By the end, the implementation of your **`TextButton`** should look like this:
   
-  - So, for **Xylopone Keys**, use **`MaterialButton`** instead of **`FlatButton`**
+  ```dart
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: TextButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(color),
+        ),
+        onPressed: () {
+          playSound(soundNumber);
+        },
+      ),
+    );
+  }
+  ```
+  
+ - **`AudioCache`** is **`deprecated`**, so use **`AudioPlayer`** instead.
+  - By the end, your solution to playing the audio should look like this:
+  ```dart
+  void playSound(int soundNumber) {
+    final player = AudioPlayer();
+    player.setSource(AssetSource('note$soundNumber.wav'));
+  }
+  ```
 
+- An example of a working project as of 16/07/2022 has been linked below:
+  - [Link to repository](https://github.com/vpatel-dev/xylophone-flutter)
+  
 ## Section 10 : Quizzler App (Lesson 94)
 
 ##### [Go back to Index](#index)

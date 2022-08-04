@@ -42,9 +42,9 @@
   
   6. #### [Section 13 : Clima App](#section-13--clima-app-lesson-140)
 
-  7. #### [Section 15 : Flash Chat App](#section-14--flash-chat-app-lessons-169-194)
+  7. #### [Section 15 : Flash Chat App](#section-15--flash-chat-app-lessons-169-194)
 
-  8. #### [Section 16 : Todoey App](#section-15--todoey-app-lessons-195-211)
+  8. #### [Section 16 : Todoey App](#section-16--todoey-app-lessons-195-211)
 
 ## Terminology
 

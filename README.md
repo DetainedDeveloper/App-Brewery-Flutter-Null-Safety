@@ -42,7 +42,9 @@
   
   6. #### [Section 13 : Clima App](#section-13--clima-app-lesson-140)
 
-  7. #### [Section 14 : Flash Chat App](#section-14--flash-chat-app-lessons-169-194)
+  7. #### [Section 15 : Flash Chat App](#section-14--flash-chat-app-lessons-169-194)
+
+  8. #### [Section 16 : Todoey App](#section-15--todoey-app-lessons-195-211)
 
 ## Terminology
 
@@ -483,7 +485,7 @@
       ```
 
 
-## Section 14 : Flash Chat App (Lessons 169-194)
+## Section 15 : Flash Chat App (Lessons 169-194)
 
 ##### [Go back to Index](#index)
 
@@ -830,3 +832,247 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
   ```
   :exclamation::exclamation::information_source: Keep in mind that the above rules are not secure enough at all. They are only good for developing purpose, but the moment you release your application in production (or even when you simply share it with other people that you don't know), you have to reinforce your **Security Rules** to be less permisive and have better and stronger control on whose accessing your database, and what data they have access to.
 
+
+
+
+
+
+## Section 16 : Todoey App (Lessons 195-211)
+
+##### [Go back to Index](#index)
+
+### Handling Global State
+
+- In ***lesson 200***, when changing our **`ListTile`** to move the `isChecked` boolean value from a "local state" to a "global state" to be able to use it for the `Text` widget as well as for the `Checkbox` widget, there might be a **type error** for the `onChanged` parameter of the `Checkbox` widget in our **`TaskCheckbox`** widget.
+
+  This is due to the **[null safety principle](https://dart.dev/null-safety)** because the `onChanged` parameter expects a function of type `Function(bool?)?` which means that:
+  - You can either give the `onChanged` parameter the `null` value (this is tanslated by the **second `?`** here --> `Function(bool?)?`, saying that the function can be null). In this case, the documentation says that the checkbox will be displayed as disabled and will not respond to input gestures.
+  - Or you can either give it a function that takes a boolean as a parameter, which is the normal use case of a checkbox, giving it a function that will do something with the new value of the checkbox.
+  - Or, you can give it a function that takes `null` as parameter (this is translated by the **first `?`** here --> `Function(bool?)?`, saying that the boolean is nullable (it can be a **boolean**, so true or false, or it can be **null**, which gives us 3 different values)). This is due to the fact that a `Checkbox` widget has a property called `tristate` (which is set to false by default), and allows the checkbox to handle three states (tristate), true, false, or the `null` value.
+
+  To fix the error, just add some `?` and `!` to manipulate the possible null values like this:
+  ```dart
+    class _TaskTileState extends State<TaskTile> {
+      bool isChecked = false;
+
+      @override
+      Widget build(BuildContext context) {
+        return ListTile(
+          title: Text(
+            widget.title,
+            style: TextStyle(
+                decoration: isChecked ? TextDecoration.lineThrough : null),
+          ),
+          trailing: TaskCheckbox(
+            checkboxState: isChecked,
+            toggleCheckboxState: (bool? checkboxState) {  // <-- add a '?' to 'bool?' type here instead of 'bool'
+              setState(() => isChecked = checkboxState!); // <-- add a '!' to 'checkboxState!' to tell you are sure there will be a boolean value in the variable (in this application we are not dealing with null values for our checkboxes, so we're good!)
+            },
+          ),
+        );
+      }
+    }
+
+    class TaskCheckbox extends StatelessWidget {
+      final bool checkboxState;
+      final ValueChanged<bool?> toggleCheckboxState;  // <-- add a '?' to 'ValueChanged<bool?>' to comply with the type of the 'onChanged' parameter (you can also use 'Function(bool?)', they are exactly the same; if you look at the `ValueChanged` code, you will see that it is just a type definition of `Function(T value)` that is used when talking about a callback reporting that an underlying value has changed)
+
+      TaskCheckbox(
+          {required this.checkboxState, required this.toggleCheckboxState});
+
+      @override
+      Widget build(BuildContext context) {
+        return Checkbox(
+          activeColor: Colors.lightBlueAccent,
+          value: checkboxState,
+          onChanged: toggleCheckboxState,
+        );
+      }
+    }
+
+  ```
+
+- In ***lesson 209***, when adding the `longPressCallback` to remove a task from our tasks list, there is a small change to match the required type:
+  ```dart
+  class TaskTile extends StatelessWidget {
+    ...
+    final Function longPressCallback; // <-- instead of this
+
+    final Function() longPressCallback; // <-- write this
+
+  ```
+
+### Bonus Part: Adding Some Tests
+
+- Testing your application by writing tests is a very good practice to make sure everything works the way you intended. Moreover, it helps you to know whenever you accidentally change the behaviour of your application by modifying it or adding new features, as your tests will break if the behaviour has changed. You can find more about the topic in the very good official documentation [testing Flutter Apps](https://docs.flutter.dev/testing#unit-tests).
+
+#### Unit Tests
+
+- To write some unit tests, we first have to import the **`test`** package:
+  ```shell
+  flutter pub add -d test
+  ```
+  :information_source:: The `-d` parameter tells to add the package under the **`dev_dependencies`**
+
+- At the same level of your **`lib`** folder, create a **`test`** folder if you don't already have one by default. Your test files will be gathered in this folder. It's a good thing to suffix those test files with the string **`_test.dart`** as they will be recognized automatically as tests in your IDE (make sure that the setting is activated: **`Preferences > Languages & Frameworks > Flutter > General > Allow files ending with _test.dart to be recognized as tests`**).
+
+- With our code written so far, we could write a few tests for our task model **`TaskData`**. Under your **test** folder, create a test file named **`task_data_test.dart`**, and write the following tests in it:
+  ```dart
+  import 'package:test/test.dart';
+  import 'package:todoey/models/task.dart';
+  import 'package:todoey/models/task_data.dart';
+
+  void main() {
+    group('Task Data', () {
+      test('tasks list should contain the new added Task', () {
+        final taskData = TaskData();
+        int initialLength = taskData.taskCount;
+
+        const String newTaskTitle = 'A new task';
+        taskData.addTask(newTaskTitle);
+
+        expect(taskData.taskCount, initialLength + 1);
+        expect(taskData.tasksList, contains(Task(name: newTaskTitle))); // For this to work, you need to override the 'equals' and 'hashCode' methods of your Task class. See the next block of code below to do so
+      });
+
+      test('tasks list should have the given Task removed', () {
+        final taskData = TaskData();
+        final initialLength = taskData.taskCount;
+        const String newTaskTitle = 'Some task';
+        taskData.addTask(newTaskTitle);
+
+        final Task task = Task(name: newTaskTitle);
+        taskData.removeTask(task);
+
+        expect(taskData.taskCount, initialLength);
+        expect(taskData.tasksList, isNot(contains(task)));
+      });
+
+      test('tasks list should have the given Task toggled', () {
+        final taskData = TaskData();
+        const String newTaskTitle = 'Some task';
+        taskData.addTask(newTaskTitle);
+
+        final addedTask =
+            taskData.tasksList.firstWhere((task) => task.name == newTaskTitle);
+
+        taskData.toggleIsDone(addedTask);
+        expect(addedTask.isDone, isTrue);
+
+        taskData.toggleIsDone(addedTask);
+        expect(addedTask.isDone, isFalse);
+      });
+    });
+  }
+  ```
+
+- Because we make a comparison of Task instances in our tests, we need to tell our code how it should define that two Task instances are equals. By default, every instance of a class that we create has a unique ID defining it. Even if we create two Task task1 and task2 with the same `title` and the same `isDone` value, they will be considered different if we try to compare them like so, `task1 == task2`.
+
+  To make the comparison checks the values of their parameters, we need to redefine the **`equals`** and **`hashCode`** methods of the **`Task`** class. To do quickly so, open your **`Task`** class and below the **`toggleIsDone`** method, use the **`Generate`** menu to automatically override those methods, using one of those methods:
+    1. On Mac, use `Cmd + N` to open the Generate menu
+    2. On Mac, use the `Control + enter` contextual suggestion to open the Generate menu
+    3. Use `Command + Shift + A` on Mac, or `Ctrl + Shift + A` on Windows to open the **Quick Action** menu, and type "Generate" to see the **"Generate..."** suggestion in the list, and choose it to open the Generate menu.
+  
+  Finally, in the Generate menu, choose the **`==() and hashCode`** option. It will open a pop-up window asking you the fields you want to be used to compare two instances of the Task class. Choose both fields and click "OK", and you should be able see the two overriden methods generated:
+  ```dart
+  class Task {
+    final String name;
+    bool isDone;
+
+    Task({required this.name, this.isDone = false});
+
+    void toggleIsDone() {
+      isDone = !isDone;
+    }
+
+    @override
+    bool operator ==(Object other) =>
+        identical(this, other) ||
+        other is Task &&
+            runtimeType == other.runtimeType &&
+            name == other.name &&
+            isDone == other.isDone;
+
+    @override
+    int get hashCode => name.hashCode ^ isDone.hashCode;
+  }
+  ```
+
+- After doing the previous step, you can run your tests and they should success.
+
+- :information_source: Tip: to quickly switch between and file and its test file, you can use the following shortcut on Mac: **`Command + Shift + T`** 
+
+
+#### Widget Tests
+
+- To write some widget tests, we first have to import the **`flutter_test`** package:
+  ```shell
+  flutter pub add -d flutter_test
+  ```
+  :information_source:: Same here, the `-d` parameter tells to add the package under the **`dev_dependencies`**
+
+- With the existing code, we could write some tests for our **`TasksScreen`** widget. Under your **test** folder, create a test file named **`tasks_screen_test.dart`**, and write the following tests in it:
+  ```dart
+  import 'package:flutter/material.dart';
+  import 'package:flutter_test/flutter_test.dart';
+  import 'package:todoey/main.dart';
+  import 'package:todoey/screens/add_task_screen.dart';
+  import 'package:todoey/widgets/tasks_list.dart';
+
+  void main() {
+    group('TasksScreen', () {
+      testWidgets(
+          'has initially a TasksList and a FloatingActionButton, and should have an AddTaskScreen after tapping the FloatingActionButton',
+          (widgetTester) async {
+        await widgetTester.pumpWidget(const MyApp());
+
+        var fabFinder = find.byType(FloatingActionButton);
+        var tasksListFinder = find.byType(TasksList);
+        var addTaskScreenFinder = find.byType(AddTaskScreen);
+
+        expect(fabFinder, findsOneWidget);
+        expect(tasksListFinder, findsOneWidget);
+        expect(addTaskScreenFinder, findsNothing);
+
+        await widgetTester.tap(fabFinder);
+        await widgetTester.pump();
+
+        expect(fabFinder, findsOneWidget);
+        expect(tasksListFinder, findsOneWidget);
+        expect(addTaskScreenFinder, findsOneWidget);
+      });
+
+      testWidgets('should add then remove a Task', (widgetTester) async {
+        await widgetTester.pumpWidget(const MyApp());
+
+        await widgetTester.tap(find.byType(FloatingActionButton));
+        await widgetTester.pumpAndSettle(); // opens the AddTaskScreen widget
+
+        var addTaskScreenFinder = find.byType(AddTaskScreen);
+        var addTaskScreenTextFieldFinder = find.descendant(
+            of: addTaskScreenFinder, matching: find.byType(TextField));
+        var addTaskScreenAddButtonFinder = find.descendant(
+            of: addTaskScreenFinder, matching: find.byType(ElevatedButton));
+
+        var taskTitle = 'A task';
+        await widgetTester.enterText(addTaskScreenTextFieldFinder, taskTitle);
+        await widgetTester.tap(addTaskScreenAddButtonFinder);
+        await widgetTester.pump();
+
+        var tasksListFinder = find.byType(TasksList);
+        var addedTaskFinder =
+            find.descendant(of: tasksListFinder, matching: find.text(taskTitle));
+        expect(addedTaskFinder, findsOneWidget);
+
+        await widgetTester.longPress(addedTaskFinder);
+        await widgetTester.pump();
+
+        expect(addedTaskFinder, findsNothing);
+      });
+    });
+  }
+  ```
+
+- It is possible that you may have to modify a few things depending on the names you have chosen for your classes and some widget types you could have chosen. Try to edit the tests to your case and make them work, otherwise you can write in the **Discussions** tab for any questions.
+
+- To run all your tests at once (unit and widget tests), you can right-click on your **`test`** folder and choose **`Run 'tests in test'`.

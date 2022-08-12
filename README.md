@@ -12,7 +12,7 @@
 
 - Use latest versions of required **`packages`** and **`plugins`**, find them on [**pub.dev**](https://pub.dev/)
 
-## Index
+## Table of Contents
 
 #### 1. [Terminology](#terminology)
 
@@ -50,13 +50,13 @@
 
 ### 1. Deprecated
 
-- You will often come across **`deprecated`** stuff, where it says **This is `deprecated`**. This means it's **not recommended** to use it anymore in your projects. You should avoid it and use alternatives.
+- You will often come across **`deprecated`** code, where it says **This is `deprecated`**. This means it's **not recommended** to use it anymore in your projects. You should avoid it and use alternatives.
 
 ### 2. Null Safety
 
-- **Null safety is not your enemy!** It's there you help you so you don't accidentally make something null and crash your app.
+- **Null safety is not your enemy!** It's there you help you write code that is **safe**. It's a **feature** of Dart and many other languages. Null safety makes sure that you don't accidentally pass a null value to a function that requires a non-null value.
 
-- Dart has **`sound null safety`**. Basically, if you're writing any code that compiler thinks might end up being **`null`**, it will notify you right away! Isn't that cool?
+- Dart has **`sound null safety`**. If you're writing any code that the compiler thinks might end up being **`null`**, it will warn you about it.
 
 - Read more : [**Sound Null Safety**](https://dart.dev/null-safety), [**Understanding Null Safety**](https://dart.dev/null-safety/understanding-null-safety), [**Null Safety in Flutter**](https://flutter.dev/docs/null-safety)
 
@@ -68,17 +68,17 @@
 
 - Use latest **`Flutter SDK`**, currently I am using **`2.2`** in **`stable channel`**
 
-  - To upgrade old one, run **`flutter upgrade`** in your **`Terminal / Command Prompt (cmd)`**
+  - To upgrade your version to the latest, run **`flutter upgrade`** in your **`Terminal or Command Prompt (cmd)`**
 
 #### 2. **`Android license status unknown`**
 
-- There are couple of things that can cause this, I'll keep adding them in future! For now I have these solutions,
+- There are couple of things that can cause this, among the common ones are:
 
   ##### Solution 1. Accept the new ones!
 
   - Just run **`flutter doctor --android-licenses`**
 
-  - Normally, this does the job. If it doesn't, go ahead.
+  - Normally, this does the job. If it doesn't, read the other solutions.
 
   ##### Solution 2. Install / Update SDK Command Line Tools
 
@@ -152,7 +152,7 @@
 #### 2. Read Updated [Flutter Docs](https://flutter.dev/docs)
 
 #### 3. Watch and Follow [Flutter's Official Youtube Channel](https://www.youtube.com/channel/UCwXdFgeE9KYzlDdR7TG9cMw)
-- To learn more about Null Safety and staying updated in general.
+- To learn more about Null Safety and stay updated in general.
 
 # Code to Update
 
@@ -180,17 +180,15 @@
   
 - **Both ways** should open **Android Part** of your **Flutter Project** in **`Android Studio`**.
   
-- Now, at bottom right, if it's running any **`gradle`** processes, let it run. Don't interrupt! However, if you close it, it'll rebuild everything when you reopen it. So, no need to worry!
+- Now, in the bottom right, if it's running any **`gradle`** processes, let it run. Don't interrupt it! However, if you close it, it will rebuild everything when you reopen it.
   
-- After that long build process completes, you can find  **`Image Asset`** option when you click on **`res`** folder, **Yay**!
+- After the build process has completed, you can find  **`Image Asset`** option when you click on **`res`** folder.
   
 - Add assets and again, **`File > Close Project`**, **`Open an Existing Project`** and this time, select your **Flutter Project** and continue!
 
 ## Section 7 : Dicee App (Lesson 53)
 
 ##### [Go back to Index](#index)
-
-- **`FlatButton`** is **`deprecated`**, so use **`TextButton`** instead.
 
 ## Section 9 : Xylophone App (Lessons 76, 77)
 
@@ -204,7 +202,7 @@
   
   - Replace whatever version it is with [**Latest Stable Kotlin Version**](https://kotlinlang.org/docs/releases.html#release-details)
   
-  - As of **July 23, 2021** it is, **`ext.kotlin_version = '1.5.21'`**
+  - As of **August 12, 2022** it is, **`ext.kotlin_version = '1.7.10'`**
   
   - Now, **re-install** the app. If it's already running, press **Stop** then press **Run (Play)** again.
 
@@ -255,15 +253,13 @@
     Question(this.questionText, this.questionAnswer);
 
     // If you want named parameters
-    // Question({required this.questionText, required this.questionAnswer});
+    // const Question({ required this.questionText, required this.questionAnswer }); // Recommended
   }
   ```
 
     - **`@required`** is replaced by just **`required` (Without @ sign)**
     
     - Here, the **Keyword `this`** points to **current context**, which happens to be **`Question`** class.
-
-- **`FlatButton`** is **`deprecated`**, so use **`TextButton`** instead.
 
 ## Section 12 : BMI Calculator App (Lessons 125, 126, 128, 129)
 
@@ -278,16 +274,16 @@
   - So, you must have to intentionally make it **`Nullable`**, by adding **`?`** to it, like this,
     ```dart
     class ReusableCard extends StatelessWidget {
-      final Color colour;
+      final Color color;
       final Widget? cardChild;
 
-      ReusableCard({required this.colour, this.cardChild});
+      ReusableCard({required this.color, this.cardChild});
 
       @override
       Widget build(BuildContext context) {
         return Container(
           decoration: BoxDecoration(
-            color: colour, 
+            color: color, 
           ),
           child: child,
         );
@@ -324,11 +320,11 @@
 - According to **Lesson 129**, **`ReusableCard`** now has a parameter named **`onPress`**, to get it working, use this,
   ```dart
   class ReusableCard extends StatelessWidget {
-    final Color colour;
+    final Color color;
     final Widget? cardChild;
     final void Function()? onPress;
 
-    ReusableCard({required this.colour, this.cardChild, this.onPress});
+    const ReusableCard({ required this.color, this.cardChild, this.onPress });
 
     @override
     Widget build(BuildContext context) {
@@ -336,7 +332,7 @@
         onTap: onPress,
         child: Container(
           decoration: BoxDecoration(
-            color: colour, 
+            color: color, 
           ),
           child: child,
         ),
@@ -400,12 +396,15 @@
     - When launching the app, you will probably have a message asking you for **Local Network Permission**: it is **not required** either.
     - To run your app on an iOS physical device, make sure that you selected a **Development Team** (refer to **Section 4 - Lesson 32** of the course):
       1. Open the Flutter project's Xcode target with open ios/Runner.xcworkspace
+      
       2. Select the 'Runner' project in the navigator then the 'Runner' target in the project settings
+      
       3. Make sure a 'Development Team' is selected under Signing & Capabilities > Team. You may need to:
           1. Log in with your Apple ID in Xcode first
           2. Ensure you have a valid unique Bundle ID (for example *"com.put-your-name-here.clima"*)
           3. Register your device with your Apple Developer Account
           4. Let Xcode automatically provision a profile for your app
+
       4. Select your iOS physical device as the target and click the Run button
         - You may have several pop-up asking you that "codesign" wants access to your Apple Development Team's key. Accept by entering your password (it's your Mac session's password, not your Apple ID's password)
         - :exclamation: **ATTENTION:** if you don't activate Internet on your physical device, it is likely that you will see a pop-up on your screen telling you that **an Internet connection is required** to verify if the developer (you) is reliable, so you would need to activate your Internet connection
@@ -438,7 +437,7 @@
           if (LocationPermission.whileInUse == locationPermission || LocationPermission.always == locationPermission) {
             Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.lowest);
             latitude = position.latitude;
-            longitude = postion.longitude;
+            longitude = position.longitude;
           }
         } catch (e) {
           print(e);
@@ -489,7 +488,7 @@
 
 ### Setting up Firebase
 
-Following the Appbrewery course, you should have logged in Firebase with your Google account, and created a Firebase project that will be linked with your Flash Chat Flutter project.
+Following the AppBrewery course, you should have logged in Firebase with your Google account, and created a Firebase project that will be linked with your Flash Chat Flutter project.
 
 #### Add Firebase to your Flutter project
 
@@ -499,7 +498,7 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
 #### Installing Firebase CLI and connect to it
 
 - Depending on your Operating System (Windows, macOS or Linux), you will find the steps to do on the [documentation](https://firebase.google.com/docs/cli?authuser=0&hl=fr#install_the_firebase_cli).
-- After the installation is done, connect to it by executin the following command in a terminal: **`firebase login`**.
+- After the installation is done, connect to it by executing the following command in a terminal: **`firebase login`**.
 
 #### Installing Flutter SDK and creating a Flutter project
 
@@ -513,7 +512,7 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
 
 #### Executing the FlutterFire CLI
 
-- Before executing the **FlutterFire CLI**, make sure to change your **`Application ID`** for Android, and your **`iOS Bundle ID`** for iOS to make them **unique and personal** (if you have copied the Flash Chat Flutter project from the Appbrewery course, they are defined with their company ID which you have to change to make it your own):
+- Before executing the **FlutterFire CLI**, make sure to change your **`Application ID`** for Android, and your **`iOS Bundle ID`** for iOS to make them **unique and personal** (if you have copied the Flash Chat Flutter project from the AppBrewery course, they are defined with their company ID which you have to change to make it your own):
 
   - **`Application ID`** for Android:
     - Open the **`build.gradle`** file located under **`android > app > build.gradle`**
@@ -539,9 +538,9 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
   - **`iOS`**: a Firebase identifying file under **`ios > firebase_app_id_file.json`** (if the course is not updated, you might see that you should have a file called **`GoogleService-Info.plist`** instead under **`ios > Runner > GoogleService-Info.plist`** --> I am not an expert with Firebase, but my guess is that the **`GoogleService-Info.plist`** comes up when you configure your Firebase project by adding an iOS application instead of a Flutter application)
 
 
-#### Initialising Firebase
+#### Initializing Firebase
 
-- To initialise Firebase, start by adding to your Flutter project the **`firebase_core`** plugin:
+- To initialize Firebase, start by adding to your Flutter project the **`firebase_core`** plugin:
   ```shell
   flutter pub add firebase_core
   ```
@@ -549,7 +548,7 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
   ```shell
   flutterfire configure
   ```
-- Then, if everything's fine, in your **`lib/main.dart`** file, change the main method to use the Firebase initialising method **`Firebase.initializeApp()`**
+- Then, if everything's fine, in your **`lib/main.dart`** file, change the main method to use the Firebase initializing method **`Firebase.initializeApp()`**
   ```dart
   import 'package:firebase_core/firebase_core.dart';
   import 'package:flash_chat/firebase_options.dart';
@@ -563,7 +562,7 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
     runApp(FlashChat());
   }
   ```
-  :exclamation::exclamation: It is **FUNDAMENTAL** that you add the parameter **`options: DefaultFirebaseOptions.currentPlatform`** because it will specify the configuration that will be used depending on the platform your application is running on (Android, iOS, macOS, Windows or Linux) --> feel free to explore the code of **`DefaultFirebaseOptions.currentPlatform`**, you will notice that it corresponds to your **`lib > firebase_options.dart`**, and that it simply verifies the platorm on which your application is running, then returns the appropriate configuration.
+  :exclamation::exclamation: It is **FUNDAMENTAL** that you add the parameter **`options: DefaultFirebaseOptions.currentPlatform`** because it will specify the configuration that will be used depending on the platform your application is running on (Android, iOS, macOS, Windows or Linux) --> feel free to explore the code of **`DefaultFirebaseOptions.currentPlatform`**, you will notice that it corresponds to your **`lib > firebase_options.dart`**, and that it simply verifies the platform on which your application is running, then returns the appropriate configuration.
 
 - Finally, stop your application if it was running (to make a fresh start), and try to run it on Android and on iOS to verify that everything works on both platform (try to run it as well on macOS, Windows and/or Linux if you are developing for those platforms).
 
@@ -680,11 +679,7 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
       You should see in the "Run tab" the information **"Running pod install..."**: Flutter is initiating that to be able to install all of the Firebase plugin packages (firebase_core, firebase_auth and cloud_firestore) as cocoapods to our iOS app.
 
 
-
-
-
 ### Code Part
-
 
 - In **chat_screen.dart** file, the object type for the *loggedInUser* was previously **`FirebaseUser`**, and should now be replaced with **`User`**. Moreover, the Firestore instance is now retrieved with `FirebaseFirestore.instance` instead of `Firestore.instance`:
 
@@ -692,6 +687,7 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
     class _ChatScreenState extends State<ChatScreen> {
       final _firestore = FirebaseFirestore.instance;
       final _auth = FirebaseAuth.instance;
+
       User loggedInUser;
       String message;
       ...
@@ -741,9 +737,6 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
       },
     );
   ```
-
-
-
 
 - To deal with the case where we would have no data in our `StreamBuilder`, we do add a `CircularProgressIndicator` after checking the value of `!snapshot.hasData`. To center it on the screen, add a margin using `MediaQuery` to retrieve the height of the screen (if you want to see how it looks like, you can simply temporarily change the if condition with `true`):
   ```dart
@@ -812,9 +805,9 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
 
 ### More Configuration on Firebase
 
-#### Cloud Firestore Authorisation and Security Rules
+#### Cloud Firestore Authorization and Security Rules
 
-- In ***lesson 192***, we change the **Security Rules** of our **Firestore Database** to allow read and write access to **authentified** users only. In the course, we add the following condition **`request.auth.uid != null`**. As of now (July 2022), we have to change this condition with the following one, regarding the [documentation](https://firebase.google.com/docs/rules/rules-and-auth#identify_users): **`request.auth != null`**
+- In ***lesson 192***, we change the **Security Rules** of our **Firestore Database** to allow read and write access to **authenticated** users only. In the course, we add the following condition **`request.auth.uid != null`**. As of now (July 2022), we have to change this condition with the following one, regarding the [documentation](https://firebase.google.com/docs/rules/rules-and-auth#identify_users): **`request.auth != null`**
   ```
     rules_version = '2';
     service cloud.firestore {
@@ -828,5 +821,5 @@ Following the Appbrewery course, you should have logged in Firebase with your Go
       }
     }
   ```
-  :exclamation::exclamation::information_source: Keep in mind that the above rules are not secure enough at all. They are only good for developing purpose, but the moment you release your application in production (or even when you simply share it with other people that you don't know), you have to reinforce your **Security Rules** to be less permisive and have better and stronger control on whose accessing your database, and what data they have access to.
+  :exclamation::exclamation::information_source: Keep in mind that the above rules are not secure enough at all. They are only good for developing purpose, but the moment you release your application in production (or even when you simply share it with other people that you don't know), you have to reinforce your **Security Rules** to be less permissive and have better and stronger control on whose accessing your database, and what data they have access to.
 

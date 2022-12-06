@@ -186,6 +186,16 @@
   
 - Add assets and again, **`File > Close Project`**, **`Open an Existing Project`** and this time, select your **Flutter Project** and continue!
 
+## Section 7 : Dicee App (Lesson 50)
+
+##### [Go back to Index](#index)
+
+- After cloning the Project and opening it with Android Studio, to **`avoid`** this error : **`"Build failed due to use of deprecated Android v1 embedding"`** do that:
+
+- click on Run --> Edit Configurations... ---> inside Additional run args : added "--ignore-deprecation"
+
+- ![image](https://user-images.githubusercontent.com/50852900/205990216-6da29aaf-9fa2-4084-91da-88c59850a2a3.png)
+
 ## Section 7 : Dicee App (Lesson 53)
 
 ##### [Go back to Index](#index)

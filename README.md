@@ -32,7 +32,7 @@
 
   1. #### [Section 3 : I Am Rich App](#section-3--i-am-rich-app-lesson-28)
   
-  2. #### [Section 7 : Dicee App](#section-7--dicee-app-lesson-53)
+  2. #### [Section 7 : Dicee App](#section-7--dicee-app-lesson-50-52-53)
   
   3. #### [Section 9 : Xylophone App](#section-9--xylophone-app-lessons-76-77)
   
@@ -185,6 +185,23 @@
 - After that long build process completes, you can find  **`Image Asset`** option when you click on **`res`** folder, **Yay**!
   
 - Add assets and again, **`File > Close Project`**, **`Open an Existing Project`** and this time, select your **Flutter Project** and continue!
+
+## Section 7 : Dicee App (Lesson 50)
+
+##### [Go back to Index](#index)
+
+- After cloning the Project and opening it with Android Studio, to **`avoid`** this error : **`"Build failed due to use of deprecated Android v1 embedding"`** do that:
+
+- click on Run --> Edit Configurations... ---> inside Additional run args : added "--ignore-deprecation"
+
+- ![image](https://user-images.githubusercontent.com/50852900/205990216-6da29aaf-9fa2-4084-91da-88c59850a2a3.png)
+
+## Section 7 : Dicee App (Lesson 52 - minute : 2:45)
+
+##### [Go back to Index](#index)
+
+- if you click at Flutter Outline, and it's shows nothing: you can fix that by **`Ctrl and click on Row or whatever function-class`**, then you will be able to see something 
+![image](https://user-images.githubusercontent.com/50852900/206002199-40c5fb24-684b-44c9-8a56-74df043b2405.png)
 
 ## Section 7 : Dicee App (Lesson 53)
 

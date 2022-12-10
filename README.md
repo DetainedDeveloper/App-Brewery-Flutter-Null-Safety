@@ -196,49 +196,7 @@
 
 ##### [Go back to Index](#index)
 
-- Getting a lengthy error when trying to use **`audioplayers` plugin**?
-  
-  - All you need to do is open **`android > build.gradle` (Project Level `gradle` file)**
-  
-  - Inside **`buildscript {}`**, you'll find **`ext.kotlin_version` (Line 2 in file)**
-  
-  - Replace whatever version it is with [**Latest Stable Kotlin Version**](https://kotlinlang.org/docs/releases.html#release-details)
-  
-  - As of **July 23, 2021** it is, **`ext.kotlin_version = '1.5.21'`**
-  
-  - Now, **re-install** the app. If it's already running, press **Stop** then press **Run (Play)** again.
-
-- **`FlatButton`** is **`deprecated`**, so use **`TextButton`** instead.
-
-- By the end, the implementation of your **`TextButton`** should look like this:
-  
-  ```dart
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: TextButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(color),
-        ),
-        onPressed: () {
-          playSound(soundNumber);
-        },
-      ),
-    );
-  }
-  ```
-  
- - **`AudioCache`** is **`deprecated`**, so use **`AudioPlayer`** instead.
-  - By the end, your solution to playing the audio should look like this:
-  ```dart
-  void playSound(int soundNumber) {
-    final player = AudioPlayer();
-    player.setSource(AssetSource('note$soundNumber.wav'));
-  }
-  ```
-
-- An example of a working project as of 16/07/2022 has been linked below:
-  - [Link to repository](https://github.com/vpatel-dev/xylophone-flutter)
+-THAT SECTION SOLUTION IS NOT WORKING
   
 ## Section 10 : Quizzler App (Lesson 94)
 

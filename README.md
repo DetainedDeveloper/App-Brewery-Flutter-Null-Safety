@@ -36,7 +36,7 @@
   
   3. #### [Section 9 : Xylophone App](#section-9--xylophone-app-lessons-76-77)
   
-  4. #### [Section 10 : Quizzler App](#section-10--quizzler-app-lesson-94)
+  4. #### [Section 10 : Quizzler App](#section-10--quizzler-app-lesson-87-94)
   
   5. #### [Section 12 : BMI Calculator App](#section-12--bmi-calculator-app-lessons-125-126-128-129)
   
@@ -240,9 +240,108 @@
 - An example of a working project as of 16/07/2022 has been linked below:
   - [Link to repository](https://github.com/vpatel-dev/xylophone-flutter)
   
-## Section 10 : Quizzler App (Lesson 94)
+## Section 10 : Quizzler App (Lesson 87, 94)
 
 ##### [Go back to Index](#index)
+
+- for the lesson 87 : after cloning the repo , you need to Migrate to V2 by following those step in [Migrating V2](#4-migrating-v2)
+- after that you need to replace FlatButton with TextButton , and added the styling and the background 
+- you can copy this code completly in your main.dart:
+import 'package:flutter/material.dart';
+
+```dart
+void main() => runApp(Quizzler());
+
+class Quizzler extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.grey.shade900,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: QuizPage(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class QuizPage extends StatefulWidget {
+  @override
+  _QuizPageState createState() => _QuizPageState();
+}
+
+class _QuizPageState extends State<QuizPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Expanded(
+          flex: 5,
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Center(
+              child: Text(
+                'This is where the question text will go.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: TextButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.red, // Background Color
+              ),
+              child: const Text(
+                'Text Button ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: TextButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.red, // Background Color
+              ),
+              child: const Text(
+                'Text Button ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+          ),
+        ),
+        //TODO: Add a Row here as your score keeper
+      ],
+    );
+  }
+}
+```
+
+
+
 
 - Due to **`null safety`**, all variables in a class must have a value assigned, when created. If not, they must be declared **`Nullable`** intentionally. This rule also applies to **`Stateless`** and **`Stateful`** widgets. On top of that, in classes extending **`StatelessWidget`**, all variables must be declared **`final`**
 

@@ -239,6 +239,12 @@
 
 - An example of a working project as of 16/07/2022 has been linked below:
   - [Link to repository](https://github.com/vpatel-dev/xylophone-flutter)
+
+- Lesson number 77 : 
+- **`FlatButton`** is **`deprecated`**, so use **`TextButton`** instead.
+- and to change the color for TextButton : use -->>> style: TextButton.styleFrom(backgroundColor: Colors.red),
+- ![image](https://user-images.githubusercontent.com/50852900/206895126-e2290af5-9d82-4496-a7ca-3263e853fa89.png)
+
   
 ## Section 10 : Quizzler App (Lesson 94)
 

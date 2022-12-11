@@ -196,7 +196,44 @@
 
 ##### [Go back to Index](#index)
 
--THAT SECTION SOLUTION IS NOT WORKING
+- Getting a lengthy error when trying to use **`audioplayers` plugin**?
+
+- first you need to play the sound from "asset/note1.wav"
+
+- Then you can copy paste this code : 
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+
+void main() => runApp(XylophoneApp());
+
+class XylophoneApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final player = AudioPlayer();
+
+    return MaterialApp(
+      home: Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: TextButton(
+              onPressed: () async {
+                await player.play(AssetSource('note1.wav'));
+              },
+              child: Text("Click me"),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+- after that start your programe , it should work
+
+- **`AudioCache`** is **`deprecated`**, so use **`AudioPlayer`** instead.
+
   
 ## Section 10 : Quizzler App (Lesson 94)
 

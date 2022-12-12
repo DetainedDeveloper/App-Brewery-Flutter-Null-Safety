@@ -38,7 +38,7 @@
   
   4. #### [Section 10 : Quizzler App](#section-10--quizzler-app-lesson-94)
   
-  5. #### [Section 12 : BMI Calculator App](#section-12--bmi-calculator-app-lessons-125-126-128-129)
+  5. #### [Section 12 : BMI Calculator App](#section-12--bmi-calculator-app-lessons-122-125-126-128-129)
   
   6. #### [Section 13 : Clima App](#section-13--clima-app-lesson-140)
 
@@ -265,9 +265,11 @@
 
 - **`FlatButton`** is **`deprecated`**, so use **`TextButton`** instead.
 
-## Section 12 : BMI Calculator App (Lessons 125, 126, 128, 129)
+## Section 12 : BMI Calculator App (Lessons 122, 125, 126, 128, 129)
 
 ##### [Go back to Index](#index)
+
+- Lesson 122 : replace **`primaryColor`** with **`primarySwatch`** inside the ThemeData wedgit
 
 - **`@required`** is replaced by just **`required` (Without @ sign)**
 

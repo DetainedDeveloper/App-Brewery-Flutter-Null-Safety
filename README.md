@@ -142,6 +142,19 @@
 
   - **Then Flutter starts rebuilding application with migrated version of it. And Done!**
 
+The above mentioned steps can also done in similar another way
+
+You can follow the below steps :
+
+delete pubspec.lock (file)
+
+Run this commands in Terminal
+
+flutter clean
+flutter pub get
+flutter pub upgrade
+
+It will solve the issue .
 
 ## Resources
 

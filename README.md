@@ -114,34 +114,25 @@
 
 #### 4. Migrating V2
 
-  - As we know [**Sound Null Safety**](https://dart.dev/null-safety) was added to **Flutter 2**. 
+  - if you run the code you will face this error Exception: Gradle task assembleDebug failed with exit code 1. 
 
-  - And before **Flutter 2** old apps don't have [**Sound Null Safety**](https://dart.dev/null-safety) feature. 
+  -  To fix this follow the below steps
 
-  - So we need to fix this, and thank [**Flutter**](https://flutter.dev/) we have simple way to do.
+  - Delete the below file which is located in your current flutter project folder.
 
-  - To fix this issue easily , 
+  - pubspec.lock 
 
-    * Delete all files and folders in App folder **`except`** course materials **`lib` - `assets` - `fonts` - `pubspec.yaml` etc.**
+   ![ww](https://user-images.githubusercontent.com/84624853/151516481-b0eb6102-215c-4cf7-9774-fccffc2e9245.jpg)
 
-    * For Example;
- 
-![ww](https://user-images.githubusercontent.com/84624853/151516481-b0eb6102-215c-4cf7-9774-fccffc2e9245.jpg)
+  - run the below commands in the **`Terminal`** while its in project folder
 
+  - 1. flutter clean
 
-  - And then go to **`Terminal`** while its in project folder and
+  - 2. flutter pub get
 
-    - **Write this line to `Terminal`**
+  - 3. flutter pub upgrade
 
-      - `flutter create .`
-
-  - For Example;
-
-![crate](https://user-images.githubusercontent.com/84624853/151516510-ae00c14b-5d79-42fc-9801-3dc9c822bfe4.jpg)
-
-
-  - **Then Flutter starts rebuilding application with migrated version of it. And Done!**
-
+  - **`This will fix the issue.`**
 
 ## Resources
 
